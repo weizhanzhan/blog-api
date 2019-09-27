@@ -1,0 +1,50 @@
+{
+    "_id": "5aff8f37d97381062fb10892",
+    "user": "5afd38eeb886f50f4320e6c1",
+    "handle": "test",
+    "company": "米修在线教育",
+    "website": "www.thenewstep.com",
+    "location": "北京",
+    "status": "前端开发",
+    "skills": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Vue.js",
+        "Node.js"
+    ],
+    "bio": "从事在线教育, 在腾讯课堂和网易云课堂都有自己的课程",
+    "githubusername": "www.github.com/hemiahwu",
+    "experience": [
+        {
+            "current": true,
+            "_id": "5aff9079d97381062fb10894",
+            "title": "n年前端开发经验",
+            "company": "某某某国内知名互联网公司",
+            "location": "北京",
+            "from": "2009-12-31T18:14:00.000Z",
+            "to": "2014-12-31T18:14:00.000Z",
+            "description": "设定代码规范, 任务分配, 代码优化等工作"
+        }
+    ],
+    "education": [
+        {
+            "current": false,
+            "_id": "5aff9153d97381062fb10895",
+            "school": "某某某高校计算机",
+            "degree": "研究生",
+            "fieldofstudy": "计算机科学与技术",
+            "from": "2007-12-31T18:14:00.000Z",
+            "to": "2010-12-31T18:14:00.000Z",
+            "description": "在校期间,表现优异, 并有上线作品."
+        }
+    ],
+    "social": {
+        "wechat": "27732357",
+        "QQ": "27732357",
+        "tengxunkt": "https://oceanwu.ke.qq.com/",
+        "wangyikt": "http://study.163.com/u/masterwu"
+    },
+    "date": "2019-05-19T02:43:03.029Z",
+    "__v": 2
+}
