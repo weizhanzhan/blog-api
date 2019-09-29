@@ -82,6 +82,9 @@ app.use("/api/categories",categories)
 // app.listen(port,()=>{
 //     console.log(`server is running at ${port}`)
 // })
-app.listen(process.env.PORT || 8080 , () => {
-    console.log(`server is running at ${process.env.PORT || 8080 }`)
+app.listen(process.env.PORT || 5000 , (req,res) => {
+    // console.log(process)
+    // const host = app.address().address
+    // console.log("应用实例，访问地址为 http://%s:%s", host, port)
+    console.log(`server is running at ${process.env.PORT || 5000 }`)
 })

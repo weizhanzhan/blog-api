@@ -1,7 +1,7 @@
 const express= require("express")
 const router =express.Router()
 const mongoose=require("mongoose")
-
+const path=require('path');
 const validateCategory=require("../../validation/category/category")
 const Category =require('../../models/categories')
 //$route GET api/categories
@@ -70,4 +70,32 @@ router.post("/edit/:category_id",(req,res)=>{
         })
 
 })
+
+
+//$route POST api/addblog 
+//@ 将base64 转为图片
+// @access public
+router.post("/baseToImg",(req,res)=>{
+   
+    let data = req.body.url
+    let oldname = req.body.name
+    var fs = require('fs');
+    var name =oldname
+    var defpath = path.join(__dirname,'../../')
+    // console.log('path:',defpath)
+    // return res.json({msg:'success',url:'http://111.231.59.56/images/blog/'+name})
+ 　 var imgPath =defpath+"static\\images\\category/\\"+name  ;//从app.js级开始找--在我的项目工程里是这样的
+    console.log(imgPath);
+    var base64 = data.replace(/^data:image\/\w+;base64,/, "");//去掉图片base64码前面部分data:image/png;base64
+    var dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
+    console.log('dataBuffer是否是Buffer对象：'+Buffer.isBuffer(dataBuffer));
+    fs.writeFile(imgPath,dataBuffer,function(err){//用fs写入文件
+        if(err){
+            console.log(err);
+        }else{
+             return res.json({msg:'success',url:'http://111.231.59.56/images/blog/'+name})
+        }
+    })  
+})
+
 module.exports=router

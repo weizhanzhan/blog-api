@@ -88,10 +88,7 @@ router.post("/basetoimg",(req,res)=>{
         }else{
              return res.json({msg:'success',url:'http://111.231.59.56/images/blog/'+name})
         }
-    })
-   
-
-    
+    })  
 })
 
 //$route POST api/editblog/:blog_id
