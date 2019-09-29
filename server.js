@@ -79,6 +79,9 @@ app.use("/api/categories",categories)
 //     })
 // });
 
-app.listen(port,()=>{
-    console.log(`server is running at ${port}`)
+// app.listen(port,()=>{
+//     console.log(`server is running at ${port}`)
+// })
+app.listen(process.env.PORT || 8080 , () => {
+    console.log(`server is running at ${process.env.PORT || 8080 }`)
 })
