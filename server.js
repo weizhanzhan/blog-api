@@ -4,7 +4,7 @@ const app=express();
 const bodyParser=require("body-parser")
 
 // const multer = require('multer');
-// const path = require('path');
+const path = require('path');
 
 const passport=require("passport");
 
@@ -55,7 +55,7 @@ app.use("/api/info",info)
 app.use("/api/categories",categories)
 
 //图片上传
-// app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')))
 
 // var storage = multer.diskStorage({
 //     destination: function (req, file, cb){
