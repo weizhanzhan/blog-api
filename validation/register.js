@@ -35,6 +35,7 @@ module.exports=function validateRegister(data){
         error.password2B="两次密码输入不一致"
     }
     console.log(error,isEmpty(error))
+    
     return {
         error,
         isValid:isEmpty(error)

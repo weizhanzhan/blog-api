@@ -112,7 +112,7 @@ function handleBaseToImg(name,base){
     return new Promise((resolve,reject)=>{
         const defpath = path.join(__dirname,'../../')
         const fs = require('fs');
-        const imgPath = defpath + "public\\images\\category/\\" + name  ;
+        const imgPath = defpath + "public/images/category/" + name  ;
         const base64 = base.replace(/^data:image\/\w+;base64,/, "");//去掉图片base64码前面部分data:image/png;base64
         const dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
         console.log('dataBuffer是否是Buffer对象：'+Buffer.isBuffer(dataBuffer));
