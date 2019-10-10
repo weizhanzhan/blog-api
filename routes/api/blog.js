@@ -6,7 +6,6 @@ const Blog=require('../../models/blog')
 const Category =require('../../models/categories')
 const validateBlog=require("../../validation/blog/addblog")
 const validateCommemt=require("../../validation/blog/comment")
-const selectImg =require("../../validation/blog/selectimg")
 //$route GET api/profile
 //@返回请求的json数据
 // @access public 
@@ -16,9 +15,18 @@ router.get("/",(req,res)=>{
     if(nowpage<1){
         nowpage=1 
     }
+    // Blog.find()
+    // .populate('category')//populate 处理关联category字段的数据 ，这里括号的内容是这个表内的字段 不是关联表的名字
+    // .then(all=>{
+    //     return res.json({blogs:all,count:0})  
+    // })
     Blog.countDocuments()
     .then(count=>{ 
-         Blog.find().sort({date:'desc'}).skip((nowpage-1)*pagesize).limit(pagesize).then(all=>{
+         Blog.find()
+         .populate('category')//populate 处理关联category字段的数据 ，这里括号的内容是这个表内的字段 不是关联表的名字
+         .sort({date:'desc'})
+         .skip((nowpage-1)*pagesize)
+         .limit(pagesize).then(all=>{
             return res.json({blogs:all,count})  
          })      
     })     
@@ -29,41 +37,37 @@ router.get("/",(req,res)=>{
 //@ 提交博客信息
 // @access public
 router.post("/addblog",(req,res)=>{
-    console.log(req.body)
     const {error,isValid }=validateBlog(req.body)
     if(!isValid){
         var data={msg:error,status:"error"}
         return res.json(data)
     }
     else{
-        const newblog={}; 
         Blog.findOne({title:req.body.title})
-        .then(blog=>{
-            
+        .then(blog=>{   
             if(blog){
                 error.title="该标题文章已经存在"
                 return res.json({msg:error,status:"error"})
             }else{
-                selectImg(req.body.classify)
-                .then(data=>{
-                    console.log('url:',data)
-                    newblog.title=req.body.title;
-                    newblog.author=req.body.author;
-                    newblog.classify=req.body.classify
-                    newblog.img=data.imgUrl;
-                    newblog.content=req.body.content
-                    new Blog(newblog).save() 
+                const { author, categoryId, content, title } = req.body
+                const newblog = {
+                    title,
+                    author,
+                    content,
+                    category:categoryId
+                };       
+                Blog.create(newblog) 
                     .then(blog=>{
-                        Category.find({name:req.body.classify})
+                        Category.findById(categoryId)
                         .then(cate=>{
-                            console.log(cate)
-                            cate[0].count+=1
-                            cate[0].save()
+                            cate.count+=1
+                            cate.save()
                         })
                         return res.json({msg:{success:"博客提交成功"},status:"success",data:blog})
                     })
-                })
-                
+                    .catch(err=>{
+                        return res.json({msg:err,status:"error"})
+                    })         
             }     
         })
     }
@@ -81,7 +85,7 @@ router.post("/basetoimg",(req,res)=>{
 　　var path = 'c:/nginx/html/images/blog/'+name  ;//从app.js级开始找--在我的项目工程里是这样的
     var base64 = data.replace(/^data:image\/\w+;base64,/, "");//去掉图片base64码前面部分data:image/png;base64
     var dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
-    console.log('dataBuffer是否是Buffer对象：'+Buffer.isBuffer(dataBuffer));
+    // console.log('dataBuffer是否是Buffer对象：'+Buffer.isBuffer(dataBuffer));
     fs.writeFile(path,dataBuffer,function(err){//用fs写入文件
         if(err){
             console.log(err);
@@ -126,7 +130,16 @@ router.get("/getblog/:blog_id",(req,res)=>{
 router.delete("/deleteblog/:blog_id",(req,res)=>{
  
     Blog.findOneAndRemove({_id:req.params.blog_id})
-    .then(()=>{
+    .then((blog)=>{
+        Category.findById(blog.category)
+        .then(cate=>{
+            if(cate.count>1){
+                cate.count --
+            }else{
+                cate.count = 0
+            }
+            cate.save()
+        })
         return res.json({msg:"删除成功"})
     })
 

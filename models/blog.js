@@ -18,9 +18,9 @@ const blogSchema=new Schema({
     introduction:{
         type:String,
     },
-    classify:{
-        type:String,
-        default:"vue.js"
+    category:{
+        type:Schema.Types.ObjectId,
+        ref:"categories"//与哪一个表关联
     },
     comment:[ 
         {
@@ -75,10 +75,7 @@ const blogSchema=new Schema({
         type:Number,
         default:0
     },
-    img:{
-        type:String,
-        default:"http://111.231.59.56:5000/images/vue.png"
-    },
+
     date:{
         type:Date,
         default:Date.now
