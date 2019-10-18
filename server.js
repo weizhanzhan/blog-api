@@ -16,6 +16,7 @@ const blog=require('./routes/api/blog')
 const message=require('./routes/api/message')
 const info=require('./routes/api/info')
 const categories =require('./routes/api/categories')
+const cur  = require('./routes/api/cur')
 //DB
 const db=require('./config/keys').mongoURI
 mongoose.connect(db, { useNewUrlParser: true })
@@ -53,6 +54,7 @@ app.use("/api/blog",blog)
 app.use("/api/message",message)
 app.use("/api/info",info)
 app.use("/api/categories",categories)
+app.use("/api/cur",cur)
 
 //图片上传
 app.use(express.static(path.join(__dirname, 'public')))
