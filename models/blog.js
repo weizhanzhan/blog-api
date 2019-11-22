@@ -18,6 +18,10 @@ const blogSchema=new Schema({
     introduction:{
         type:String,
     },
+    isAbort:{
+        type:Boolean,
+        default:false
+    },
     category:{
         type:Schema.Types.ObjectId,
         ref:"categories"//与哪一个表关联

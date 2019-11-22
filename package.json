@@ -12,6 +12,7 @@
   "dependencies": {
     "bcrypt": "^3.0.0",
     "express": "^4.16.3",
+    "express-to-https": "^1.0.3",
     "gravatar": "^1.6.0",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.1.4",

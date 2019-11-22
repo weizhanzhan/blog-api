@@ -4,6 +4,7 @@ const mongoose=require("mongoose")
 const path=require('path');
 const validateCategory=require("../../validation/category/category")
 const Category =require('../../models/categories')
+const passport=require('passport')
 //$route GET api/categories
 //@返回请求的json数据
 // @access public
@@ -49,8 +50,11 @@ router.post("/add",(req,res)=>{
 //$route delete api/categories/del/:category_id
 //desc @ 删除分类
 // @access public
-router.delete("/del/:category_id",(req,res)=>{
- 
+router.delete("/del/:category_id",passport.authenticate("jwt",{session:false}),(req,res)=>{
+    const { role } = req.user
+    if(role !=='superAdmin'){
+      return  res.status(400).json({msg:'您没有权限操作,可以换成自己的接口测试和联系作者哦'})
+    }
     Category.findOneAndRemove({_id:req.params.category_id})
     .then(()=>{
         res.json({msg:"删除成功"})
@@ -61,7 +65,11 @@ router.delete("/del/:category_id",(req,res)=>{
 //$route POST api/categories/edit/:category_id
 //@ 修改博客信息
 // @access public
-router.post("/edit/:category_id",async (req,res)=>{
+router.post("/edit/:category_id",passport.authenticate("jwt",{session:false}),async (req,res)=>{
+    const { role } = req.user
+    if(role !=='superAdmin'){
+      return  res.status(400).json({msg:'您没有权限操作,可以新增一个试试看,图片不要太大哦'})
+    }
     const {error,isValid }=validateCategory(req.body)
     if(!isValid){
         return res.status(400).json(error)
