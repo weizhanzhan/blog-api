@@ -5,7 +5,7 @@ const request = require('request')
 router.get("/", (req, res) => {
     let code = req.query.code
     request({
-        url:  'https://github.com/login/oauth/access_token?client_id=Iv1.bf8bf2cd9260e8a0&client_secret=a69f03e78b169ad05932e0161af802e7b6f83b66&code='+code,
+        url:  'https://github.com/login/oauth/access_token?client_id=a3cca693df0ee3a00cb9&client_secret=7b82d8e39f140637b742c1fbc1cc87bd7e21c5bc&code='+code,
         headers: {
             accept: 'application/json'
           },
