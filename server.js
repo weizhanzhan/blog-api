@@ -20,7 +20,7 @@ const cur  = require('./routes/api/cur')
 const github = require('./routes/api/github')
 //DB
 const db=require('./config/keys').mongoURI
-mongoose.connect(db, { useNewUrlParser: true })
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
            .then(res=>{
                console.log("mongodb is connected")
            })

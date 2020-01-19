@@ -18,7 +18,8 @@ router.get("/", (req, res) => {
     nowpage = 1
   }
   console.log(isAbort);
-  Blog.countDocuments({
+  try {
+    Blog.countDocuments({
       isAbort
     })
     .then(count => {
@@ -39,6 +40,10 @@ router.get("/", (req, res) => {
           })
         })
     })
+  } catch (error) {
+    console.log(error);
+  }
+  
 
 })
 
