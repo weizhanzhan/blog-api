@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.0",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "express-to-https": "^1.0.3",
     "gravatar": "^1.6.0",
     "jsonwebtoken": "^8.3.0",
